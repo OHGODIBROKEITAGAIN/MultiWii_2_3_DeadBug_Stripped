@@ -48,8 +48,8 @@
   /****************************    Mincommand          *******************************/
     /* this is the value for the ESCs when they are not armed
        in some cases, this value must be lowered down to 900 for some specific ESCs, otherwise they failed to initiate */
-    #define MINCOMMAND  1000
-
+    //#define MINCOMMAND  1000
+    #define MINCOMMAND  900
   /**********************************    I2C speed   ************************************/
     #define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
     //#define I2C_SPEED 400000L   //400kHz fast mode, it works only with some WMP clones
@@ -69,26 +69,6 @@
       
     /***************************    independent sensors    ********************************/
       /* leave it commented if you already checked a specific board above */
-
-      /* I2C gyroscope */
-      //#define WMP
-      //#define ITG3200
-      //#define MPU3050
-      //#define L3G4200D
-      //#define MPU6050       //combo + ACC
-      //#define LSM330        //combo + ACC
-      
-      /* I2C accelerometer */
-      //#define NUNCHUCK  // if you want to use the nunckuk connected to a WMP
-      //#define MMA7455
-      //#define ADXL345
-      //#define BMA020
-      //#define BMA180
-      //#define BMA280
-      //#define NUNCHACK  // if you want to use the nunckuk as a standalone I2C ACC without WMP
-      //#define LIS3LV02
-      //#define LSM303DLx_ACC
-      //#define MMA8451Q
 
       /* I2C barometer */
       //#define BMP085
@@ -124,10 +104,10 @@
 
 /* Flight modes enabled via above selected IMU and/or sensors */
       //#define HEADFREE
-      #define HEADHOLD
+ //    #define HEADHOLD
       #define ANGLE
       #define HORIZON
-      #define PASSTHRU
+ //     #define PASSTHRU
       #define FAILSAFE
 
 /*************************************************************************************************/
@@ -153,7 +133,7 @@
 
 // TO DO: Disable stick combo's & replace with Tx Switch Arming
     
-    #define ALLOW_ARM_DISARM_VIA_TX_YAW
+    //#define ALLOW_ARM_DISARM_VIA_TX_YAW
     //#define ALLOW_ARM_DISARM_VIA_TX_ROLL
 
     /********************************    SERVOS      *********************************/
@@ -327,7 +307,7 @@
 
     /**********************************    Buzzer Pin    **********************************/
       /* this moves the Buzzer pin from TXO to D8 for use with ppm sum or spectrum sat. RX (not needed if A32U4ALLPINS is active) */
-      //#define D8BUZZER
+      #define D8BUZZER
 
 
   /**************************************************************************************/
@@ -384,9 +364,9 @@
          balancing options ran out. Uncomment only one option!
          IMPORTANT! Change low pass filter setting changes PID behaviour, so retune your PID's after changing LPF.*/
 
-      //#define MPU6050_LPF_256HZ     // This is the default setting, no need to uncomment, just for reference
+      #define MPU6050_LPF_256HZ     // This is the default setting, no need to uncomment, just for reference
       //#define MPU6050_LPF_188HZ
-      #define MPU6050_LPF_98HZ
+      //#define MPU6050_LPF_98HZ
       //#define MPU6050_LPF_42HZ
       //#define MPU6050_LPF_20HZ
       //#define MPU6050_LPF_10HZ
@@ -439,7 +419,7 @@
 
   /************************        AP FlightMode        **********************************/
     /* Temporarily Disables GPS_HOLD_MODE to be able to make it possible to adjust the Hold-position when moving the sticks.*/
-    #define AP_MODE 40  // Create a deadspan for GPS.
+    //#define AP_MODE 40  // Create a deadspan for GPS.
         
   /************************   Assisted AcroTrainer    ************************************/
     /* Train Acro with auto recovery. Value set the point where ANGLE_MODE takes over.
@@ -457,8 +437,8 @@
     #define FAILSAFE                                // uncomment  to activate the failsafe function
     #define FAILSAFE_DELAY     1                     // Guard time for failsafe activation after signal lost. 1 step = 0.1sec - 1sec in example
     #define FAILSAFE_OFF_DELAY 0                    // Time for Landing before motors stop in 0.1sec. 1 step = 0.1sec - 20sec in example
-    //#define FAILSAFE_THROTTLE  (1000)    // (*) Throttle level used for landing - may be relative to MINTHROTTLE - as in this case
-    #define FAILSAFE_THROTTLE  (MINTHROTTLE + 40)
+    #define FAILSAFE_THROTTLE  (MINTHROTTLE)    // (*) Throttle level used for landing - may be relative to MINTHROTTLE - as in this case
+    //#define FAILSAFE_THROTTLE  (MINTHROTTLE + 40)
 
     #define FAILSAFE_DETECT_TRESHOLD  985
 
@@ -576,9 +556,9 @@
   /********************************************************************/
   /****                             Buzzer                         ****/
   /********************************************************************/
-    //#define BUZZER
-    //#define RCOPTIONSBEEP         // uncomment this if you want the buzzer to beep at any rcOptions change on channel Aux1 to Aux4
-    //#define ARMEDTIMEWARNING 330  // (*) Trigger an alarm after a certain time of being armed [s] to save you lipo (if your TX does not have a countdown)
+    #define BUZZER
+    #define RCOPTIONSBEEP         // uncomment this if you want the buzzer to beep at any rcOptions change on channel Aux1 to Aux4
+    #define ARMEDTIMEWARNING 330  // (*) Trigger an alarm after a certain time of being armed [s] to save you lipo (if your TX does not have a countdown)
     //#define PILOTLAMP             //Uncomment if you are using a X-Arcraft Pilot Lamp
 
   /********************************************************************/
