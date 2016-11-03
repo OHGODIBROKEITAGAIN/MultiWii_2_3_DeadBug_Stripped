@@ -32,8 +32,26 @@
 /*************************************************************************************************/
 
   /**************************    The type of multicopter    ****************************/
-
+    //#define GIMBAL
+    //#define BI
+    //#define TRI
+    //#define QUADP
     #define QUADX
+    //#define Y4
+    //#define Y6
+    //#define HEX6
+    //#define HEX6X
+    //#define HEX6H  // New Model
+    //#define OCTOX8
+    //#define OCTOFLATP
+    //#define OCTOFLATX
+    //#define FLYING_WING
+    //#define VTAIL4
+    //#define AIRPLANE
+    //#define SINGLECOPTER
+    //#define DUALCOPTER
+    //#define HELI_120_CCPM
+    //#define HELI_90_DEG
 
   /****************************    Motor minthrottle    *******************************/
     /* Set the minimum throttle command sent to the ESC (Electronic Speed Controller)
@@ -47,13 +65,12 @@
 
   /****************************    Motor maxthrottle    *******************************/
     /* this is the maximum value for the ESCs at full power, this value can be increased up to 2000 */
-    //#define MAXTHROTTLE 2020
-    //#define MAXTHROTTLE 1875
-    #define MAXTHROTTLE 2000
+    #define MAXTHROTTLE 2020
+
   /****************************    Mincommand          *******************************/
     /* this is the value for the ESCs when they are not armed
        in some cases, this value must be lowered down to 900 for some specific ESCs, otherwise they failed to initiate */
-    #define MINCOMMAND  900
+    #define MINCOMMAND  1000
 
   /**********************************    I2C speed   ************************************/
     #define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
@@ -71,16 +88,136 @@
       /* if you use a specific sensor board:
          please submit any correction to this list.
            Note from Alex: I only own some boards, for other boards, I'm not sure, the info was gathered via rc forums, be cautious */
+      //#define FFIMUv1         // first 9DOF+baro board from Jussi, with HMC5843                   <- confirmed by Alex
+      //#define FFIMUv2         // second version of 9DOF+baro board from Jussi, with HMC5883       <- confirmed by Alex
+      //#define FREEIMUv1       // v0.1 & v0.2 & v0.3 version of 9DOF board from Fabio
+      //#define FREEIMUv03      // FreeIMU v0.3 and v0.3.1
+      //#define FREEIMUv035     // FreeIMU v0.3.5 no baro
+      //#define FREEIMUv035_MS  // FreeIMU v0.3.5_MS                                                <- confirmed by Alex
+      //#define FREEIMUv035_BMP // FreeIMU v0.3.5_BMP
+      //#define FREEIMUv04      // FreeIMU v0.4 with MPU6050, HMC5883L, MS561101BA                  <- confirmed by Alex
+      //#define FREEIMUv043     // same as FREEIMUv04 with final MPU6050 (with the right ACC scale)
+      //#define NANOWII         // the smallest multiwii FC based on MPU6050 + pro micro based proc <- confirmed by Alex
+      //#define PIPO            // 9DOF board from erazz
+      //#define QUADRINO        // full FC board 9DOF+baro board from witespy  with BMP085 baro     <- confirmed by Alex
+      //#define QUADRINO_ZOOM   // full FC board 9DOF+baro board from witespy  second edition
+      //#define QUADRINO_ZOOM_MS// full FC board 9DOF+baro board from witespy  second edition       <- confirmed by Alex
+      //#define ALLINONE        // full FC board or standalone 9DOF+baro board from CSG_EU
+      //#define AEROQUADSHIELDv2
+      //#define ATAVRSBIN1      // Atmel 9DOF (Contribution by EOSBandi). requires 3.3V power.
+      //#define SIRIUS          // Sirius Navigator IMU                                             <- confirmed by Alex
+      //#define SIRIUSGPS       // Sirius Navigator IMU  using external MAG on GPS board            <- confirmed by Alex
+      //#define SIRIUS600       // Sirius Navigator IMU  using the WMP for the gyro
+      //#define SIRIUS_AIR      // Sirius Navigator IMU 6050 32U4 from MultiWiiCopter.com           <- confirmed by Alex
+      //#define SIRIUS_AIR_GPS  // Sirius Navigator IMU 6050 32U4 from MultiWiiCopter.com with GPS/MAG remote located
+      //#define SIRIUS_MEGAv5_OSD //  Paris_Sirius™ ITG3050,BMA280,MS5611,HMC5883,uBlox  http://www.Multiwiicopter.com <- confirmed by Alex
+      //#define MINIWII         // Jussi's MiniWii Flight Controller                                <- confirmed by Alex
+      //#define MICROWII        // MicroWii 10DOF with ATmega32u4, MPU6050, HMC5883L, MS561101BA from http://flyduino.net/
+      //#define CITRUSv2_1      // CITRUS from qcrc.ca
+      //#define CHERRY6DOFv1_0
+      //#define DROTEK_10DOF    // Drotek 10DOF with ITG3200, BMA180, HMC5883, BMP085, w or w/o LLC
+      //#define DROTEK_10DOF_MS // Drotek 10DOF with ITG3200, BMA180, HMC5883, MS5611, LLC
+      //#define DROTEK_6DOFv2   // Drotek 6DOF v2
+      //#define DROTEK_6DOF_MPU // Drotek 6DOF with MPU6050
+      //#define DROTEK_10DOF_MPU//
+      //#define MONGOOSE1_0     // mongoose 1.0    http://store.ckdevices.com/
+      //#define CRIUS_LITE      // Crius MultiWii Lite
+      //#define CRIUS_SE        // Crius MultiWii SE
+      //#define CRIUS_SE_v2_0   // Crius MultiWii SE 2.0 with MPU6050, HMC5883 and BMP085
+      //#define OPENLRSv2MULTI  // OpenLRS v2 Multi Rc Receiver board including ITG3205 and ADXL345
+      //#define BOARD_PROTO_1   // with MPU6050 + HMC5883L + MS baro
+      //#define BOARD_PROTO_2   // with MPU6050 + slave  MAG3110 + MS baro
+      //#define GY_80           // Chinese 10 DOF with  L3G4200D ADXL345 HMC5883L BMP085, LLC
+      //#define GY_85           // Chinese 9 DOF with  ITG3205 ADXL345 HMC5883L LLC
+      //#define GY_86           // Chinese 10 DOF with  MPU6050 HMC5883L MS5611, LLC
+      //#define GY_521          // Chinese 6  DOF with  MPU6050, LLC
+      //#define INNOVWORKS_10DOF // with ITG3200, BMA180, HMC5883, BMP085 available here http://www.diymulticopter.com
+      //#define INNOVWORKS_6DOF // with ITG3200, BMA180 available here http://www.diymulticopter.com
+      //#define MultiWiiMega    // MEGA + MPU6050+HMC5883L+MS5611 available here http://www.diymulticopter.com
+      //#define PROTO_DIY       // 10DOF mega board
+      //#define IOI_MINI_MULTIWII// www.bambucopter.com
+      //#define Bobs_6DOF_V1     // BobsQuads 6DOF V1 with ITG3200 & BMA180
+      //#define Bobs_9DOF_V1     // BobsQuads 9DOF V1 with ITG3200, BMA180 & HMC5883L
+      //#define Bobs_10DOF_BMP_V1 // BobsQuads 10DOF V1 with ITG3200, BMA180, HMC5883L & BMP180 - BMP180 is software compatible with BMP085
+      //#define FLYDUINO_MPU       // MPU6050 Break Out onboard 3.3V reg
+      //#define CRIUS_AIO_PRO_V1
+      //#define DESQUARED6DOFV2GO  // DEsquared V2 with ITG3200 only
+      //#define DESQUARED6DOFV4    // DEsquared V4 with MPU6050
+      //#define HK_POCKETQUAD
+	  //#define LADYBIRD
+      //#define MEGAWAP_V2_STD     // available here: http://www.multircshop.com                    <- confirmed by Alex
+      //#define MEGAWAP_V2_ADV
+      //#define HK_MultiWii_SE_V2  // Hobbyking board with MPU6050 + HMC5883L + BMP085
+      //#define HK_MultiWii_328P   // Also labeled "Hobbybro" on the back.  ITG3205 + BMA180 + BMP085 + NMC5583L + DSM2 Connector (Spektrum Satellite)  
+      //#define RCNet_FC           // RCNet FC with MPU6050 and MS561101BA  http://www.rcnet.com
+      //#define RCNet_FC_GPS       // RCNet FC with MPU6050 + MS561101BA + HMC5883L + UBLOX GPS http://www.rcnet.com
+      //#define FLYDU_ULTRA        // MEGA+10DOF+MT3339 FC
+      //#define DIYFLYING_MAGE_V1  // diyflying 10DOF mega board with MPU6050 + HMC5883L + BMP085 http://www.indoor-flying.hk
       //#define MultiWii_32U4_SE         // Hextronik MultiWii_32U4_SE
       //#define MultiWii_32U4_SE_no_baro // Hextronik MultiWii_32U4_SE without the MS561101BA for more free flash-memory
-
+      //#define Flyduino9DOF       // Flyduino 9DOF IMU MPU6050+HMC5883l
+      //#define Nano_Plane         // Multiwii Plane version with tail-front LSM330 sensor http://www.radiosait.ru/en/page_5324.html
       #define HK_MICRO_MWC 
+      
+    /***************************    independent sensors    ********************************/
+      /* leave it commented if you already checked a specific board above */
+      /* I2C gyroscope */
+      //#define WMP
+      //#define ITG3200
+      //#define MPU3050
+      //#define L3G4200D
+      //#define MPU6050       //combo + ACC
+      //#define LSM330        //combo + ACC
+      
+      /* I2C accelerometer */
+      //#define NUNCHUCK  // if you want to use the nunckuk connected to a WMP
+      //#define MMA7455
+      //#define ADXL345
+      //#define BMA020
+      //#define BMA180
+      //#define BMA280
+      //#define NUNCHACK  // if you want to use the nunckuk as a standalone I2C ACC without WMP
+      //#define LIS3LV02
+      //#define LSM303DLx_ACC
+      //#define MMA8451Q
+
+      /* I2C barometer */
+      //#define BMP085
+      //#define MS561101BA
+
+      /* I2C magnetometer */
+      //#define HMC5843
+      //#define HMC5883
+      //#define AK8975
+      //#define MAG3110
+
+      /* Sonar */ // for visualization purpose currently - no control code behind
+      //#define SRF02 // use the Devantech SRF i2c sensors
+      //#define SRF08
+      //#define SRF10
+      //#define SRF23
+
+      /* ADC accelerometer */ // for 5DOF from sparkfun, uses analog PIN A1/A2/A3
+      //#define ADCACC
+
+      /* enforce your individual sensor orientation - even overrides board specific defaults */
+      //#define FORCE_ACC_ORIENTATION(X, Y, Z)  {imu.accADC[ROLL]  =  Y; imu.accADC[PITCH]  = -X; imu.accADC[YAW]  = Z;}
+      //#define FORCE_GYRO_ORIENTATION(X, Y, Z) {imu.gyroADC[ROLL] = -Y; imu.gyroADC[PITCH] =  X; imu.gyroADC[YAW] = Z;}
+      //#define FORCE_MAG_ORIENTATION(X, Y, Z)  {imu.magADC[ROLL]  =  X; imu.magADC[PITCH]  =  Y; imu.magADC[YAW]  = Z;}
+
+      /* Board orientation shift */
+      /* If you have frame designed only for + mode and you cannot rotate FC phisycally for flying in X mode (or vice versa)
+       * you can use one of of this options for virtual sensors rotation by 45 deegres, then set type of multicopter according to flight mode.
+       * Check motors order and directions of motors rotation for matching with new front point!  Uncomment only one option! */
+      //#define SENSORS_TILT_45DEG_RIGHT        // rotate the FRONT 45 degres clockwise
+      //#define SENSORS_TILT_45DEG_LEFT         // rotate the FRONT 45 degres counterclockwise
 
 	//#define HEADFREE
 	//#define HEADHOLD
         #define ANGLE
         #define HORIZON
-        //#define PASSTHRU
+        #define PASSTHRU
+        #define HEADHOLD
         #define FAILSAFE
 
 /*************************************************************************************************/
@@ -98,6 +235,8 @@
     /* NEW: not used anymore for servo coptertypes  <== NEEDS FIXING - MOVE TO WIKI */
     #define YAW_DIRECTION 1
     //#define YAW_DIRECTION -1 // if you want to reverse the yaw correction direction
+
+    //#define ONLYARMWHENFLAT //prevent the copter from arming when the copter is tilted
 
    /********************************    ARM/DISARM    *********************************/
    /* optionally disable stick combinations to arm/disarm the motors.
@@ -117,6 +256,26 @@
      //#define  SERVO_MAX {2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000}
      //#define  SERVO_MID {1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500} // (*)
      //#define FORCE_SERVO_RATES      {30,30,100,100,100,100,100,100} // 0 = normal, 1= reverse
+
+  /***********************          Cam Stabilisation             ***********************/
+    /* The following lines apply only for a pitch/roll tilt stabilization system. Uncomment the first or second line to activate it */
+    //#define SERVO_MIX_TILT
+    //#define SERVO_TILT
+
+    /* camera trigger function : activated via Rc Options in the GUI, servo output=A2 on promini */
+    // trigger interval can be changed via (*GUI*) or via AUX channel
+    //#define CAMTRIG
+    #define CAM_TIME_HIGH 1000   // the duration of HIGH state servo expressed in ms
+
+  /***********************          Airplane                       ***********************/
+    //#define USE_THROTTLESERVO // For use of standard 50Hz servo on throttle.
+
+    //#define FLAPPERONS    AUX4          // Mix Flaps with Aileroins.
+    #define FLAPPERON_EP   { 1500, 1700 } // Endpooints for flaps on a 2 way switch else set {1020,2000} and program in radio.
+    #define FLAPPERON_INVERT { -1, 1 }    // Change direction om flapperons { Wing1, Wing2 }
+    
+    //#define FLAPS                       // Traditional Flaps on SERVO3.
+    //#define FLAPSPEED     3             // Make flaps move slowm Higher value is Higher Speed.
 
   /***********************      Common for Heli & Airplane         ***********************/
 
@@ -224,6 +383,31 @@
 /*************************************************************************************************/
 
   /**************************************************************************************/
+  /********                      Promini Specifig Settings           ********************/
+  /**************************************************************************************/
+
+    /**************************    Hexa Motor 5 & 6 Pins    *******************************/
+      /* PIN A0 and A1 instead of PIN D5 & D6 for 6 motors config and promini config
+         This mod allow the use of a standard receiver on a pro mini
+         (no need to use a PPM sum receiver) */
+      //#define A0_A1_PIN_HEX
+
+    /*********************************    Aux 2 Pin     ***********************************/
+      /* possibility to use PIN8 or PIN12 as the AUX2 RC input (only one, not both)
+         it deactivates in this case the POWER PIN (pin 12) or the BUZZER PIN (pin 8) */
+      //#define RCAUXPIN8
+      //#define RCAUXPIN12
+
+
+  /**************************************************************************************/
+  /*****************             Teensy 2.0 Support                    ******************/
+  /**************************************************************************************/
+    /* uncomment this if you use a teensy 2.0 with teensyduino
+       it needs to run at 16MHz */
+    //#define TEENSY20
+
+
+  /**************************************************************************************/
   /********   Settings for ProMicro, Leonardo and other Atmega32u4 Boards     ***********/
   /**************************************************************************************/
 
@@ -292,13 +476,7 @@
     #define SERIAL2_COM_SPEED 115200
     #define SERIAL3_COM_SPEED 115200
 
-    //#define SERIAL0_COM_SPEED 9600
-    //#define SERIAL1_COM_SPEED 9600
-    //#define SERIAL2_COM_SPEED 9600
-    //#define SERIAL3_COM_SPEED 9600
-
-
-/* interleaving delay in micro seconds between 2 readings WMP/NK in a WMP+NK config
+    /* interleaving delay in micro seconds between 2 readings WMP/NK in a WMP+NK config
        if the ACC calibration time is very long (20 or 30s), try to increase this delay up to 4000
        it is relevent only for a conf with NK */
     #define INTERLEAVING_DELAY 3000
@@ -330,9 +508,9 @@
          It will not help on feedback wobbles, so change only when copter is randomly twiching and all dampening and
          balancing options ran out. Uncomment only one option!
          IMPORTANT! Change low pass filter setting changes PID behaviour, so retune your PID's after changing LPF.*/
-      #define MPU6050_LPF_256HZ     // This is the default setting, no need to uncomment, just for reference
+      //#define MPU6050_LPF_256HZ     // This is the default setting, no need to uncomment, just for reference
       //#define MPU6050_LPF_188HZ
-      //#define MPU6050_LPF_98HZ
+      #define MPU6050_LPF_98HZ
       //#define MPU6050_LPF_42HZ
       //#define MPU6050_LPF_20HZ
       //#define MPU6050_LPF_10HZ
@@ -395,7 +573,7 @@
 
 
   /********                          Failsafe settings                 ********************/
-    /* Failsafe check pulses on four main control channels CH1-CH4. If the pulse is missing or bellow 985us (on any of these four channels)
+    /* Failsafe check pulses on four main control channels CH1-CH4. If the pulse is missing or bellow 985us (on any of these four channels) 
        the failsafe procedure is initiated. After FAILSAFE_DELAY time from failsafe detection, the level mode is on (if ACC or nunchuk is avaliable),
        PITCH, ROLL and YAW is centered and THROTTLE is set to FAILSAFE_THROTTLE value. You must set this value to descending about 1m/s or so
        for best results. This value is depended from your configuration, AUW and some other params.  Next, after FAILSAFE_OFF_DELAY the copter is disarmed, 
@@ -403,10 +581,50 @@
     #define FAILSAFE                                // uncomment  to activate the failsafe function
     #define FAILSAFE_DELAY     1                     // Guard time for failsafe activation after signal lost. 1 step = 0.1sec - 1sec in example
     #define FAILSAFE_OFF_DELAY 0                    // Time for Landing before motors stop in 0.1sec. 1 step = 0.1sec - 20sec in example
-    #define FAILSAFE_THROTTLE  (MINTHROTTLE)    // (*) Throttle level used for landing - may be relative to MINTHROTTLE - as in this case
+    #define FAILSAFE_THROTTLE  (1000)    // (*) Throttle level used for landing - may be relative to MINTHROTTLE - as in this case
     
-    #define FAILSAFE_DETECT_TRESHOLD  985 // 985 us default
+    #define FAILSAFE_DETECT_TRESHOLD  985
 
+
+  /*****************                DFRobot LED RING    *********************************/
+    /* I2C DFRobot LED RING communication */
+    //#define LED_RING
+
+  /********************************    LED FLASHER    ***********************************/
+    //#define LED_FLASHER
+    //#define LED_FLASHER_DDR DDRB
+    //#define LED_FLASHER_PORT PORTB
+    //#define LED_FLASHER_BIT PORTB4
+    //#define LED_FLASHER_INVERT
+    //#define LED_FLASHER_SEQUENCE        0b00000000      // leds OFF
+    //#define LED_FLASHER_SEQUENCE_ARMED  0b00000101      // create double flashes
+    //#define LED_FLASHER_SEQUENCE_MAX    0b11111111      // full illumination
+    //#define LED_FLASHER_SEQUENCE_LOW    0b00000000      // no illumination
+
+
+  /*******************************    Landing lights    *********************************/
+  /* Landing lights
+     Use an output pin to control landing lights.
+     They can be switched automatically when used in conjunction
+     with altitude data from a sonar unit. */
+    //#define LANDING_LIGHTS_DDR DDRC
+    //#define LANDING_LIGHTS_PORT PORTC
+    //#define LANDING_LIGHTS_BIT PORTC0
+    //#define LANDING_LIGHTS_INVERT
+
+    /* altitude above ground (in cm) as reported by sonar */
+    //#define LANDING_LIGHTS_AUTO_ALTITUDE 50
+
+    /* adopt the flasher pattern for landing light LEDs */
+    //#define LANDING_LIGHTS_ADOPT_LED_FLASHER_PATTERN
+
+  /*************************    INFLIGHT ACC Calibration    *****************************/
+    /* This will activate the ACC-Inflight calibration if unchecked */
+    //#define INFLIGHT_ACC_CALIBRATION
+
+  /*******************************    OSD Switch    *************************************/
+    // This adds a box that can be interpreted by OSD in activation status (to switch on/off the overlay for instance)
+  //#define OSD_SWITCH
 
   /**************************************************************************************/
   /***********************                  TX-related         **************************/
@@ -414,7 +632,7 @@
 
     /* introduce a deadband around the stick center
        Must be greater than zero, comment if you dont want a deadband on roll, pitch and yaw */
-    //#define DEADBAND 20
+    #define DEADBAND 20
 
   /**************************************************************************************/
   /***********************                  GPS                **************************/
@@ -495,11 +713,11 @@
 
     /*****************************   The type of LCD     **********************************/
       /* choice of LCD attached for configuration and telemetry, see notes below */
-      //#define LCD_DUMMY       // No Physical LCD attached.  With this & LCD_CONF defined, TX sticks still work to set gains, by watching LED blink.
+      //#define LCD_DUMMY       // No Physical LCD attached.  With this & LCD_CONF defined, TX sticks still work to set gains, by watching LED blink.  
       //#define LCD_SERIAL3W    // Alex' initial variant with 3 wires, using rx-pin for transmission @9600 baud fixed
       //#define LCD_TEXTSTAR    // SERIAL LCD: Cat's Whisker LCD_TEXTSTAR Module CW-LCD-02 (Which has 4 input keys for selecting menus)
       //#define LCD_VT100       // SERIAL LCD: vt100 compatible terminal emulation (blueterm, putty, etc.)
-      #define LCD_TTY         // SERIAL LCD: useful to tweak parameters over cable with arduino IDE 'serial monitor'
+      //#define LCD_TTY         // SERIAL LCD: useful to tweak parameters over cable with arduino IDE 'serial monitor'
       //#define LCD_ETPP        // I2C LCD: Eagle Tree Power Panel LCD, which is i2c (not serial)
       //#define LCD_LCD03       // I2C LCD: LCD03, which is i2c
       //#define OLED_I2C_128x64 // I2C LCD: OLED http://www.multiwii.com/forum/viewtopic.php?f=7&t=1350
@@ -599,12 +817,12 @@
        with R1=33k and R2=51k
        vbat = [0;1023]*16/VBATSCALE
        must be associated with #define BUZZER ! */
-    #define VBAT              // uncomment this line to activate the vbat code
+    //#define VBAT              // uncomment this line to activate the vbat code
     #define VBATSCALE       131 // (*) (**) change this value if readed Battery voltage is different than real voltage
-    #define VBATNOMINAL     42 // 12,6V full battery nominal voltage - only used for lcd.telemetry
-    #define VBATLEVEL_WARN1 40 // (*) (**) 10,7V
-    #define VBATLEVEL_WARN2  38 // (*) (**) 9.9V
-    #define VBATLEVEL_CRIT   34 // (*) (**) 9.3V - critical condition: if vbat ever goes below this value, permanent alarm is triggered
+    #define VBATNOMINAL     126 // 12,6V full battery nominal voltage - only used for lcd.telemetry
+    #define VBATLEVEL_WARN1 107 // (*) (**) 10,7V
+    #define VBATLEVEL_WARN2  99 // (*) (**) 9.9V
+    #define VBATLEVEL_CRIT   93 // (*) (**) 9.3V - critical condition: if vbat ever goes below this value, permanent alarm is triggered
     #define NO_VBAT          16 // Avoid beeping without any battery
 
 
@@ -619,7 +837,7 @@
        1 - hard: - (uses hardware sensor, after configuration gives very good results)
        2 - soft: - (good results +-5% for plush and mystery ESCs @ 2S and 3S, not good with SuperSimple ESC)    */
     //#define POWERMETER_SOFT
-    #define POWERMETER_HARD
+    //#define POWERMETER_HARD
     #define PSENSORNULL 510 /* (*) hard only: set to analogRead() value for zero current; for I=0A my sensor
                                    gives 1/2 Vss; that is approx 2.49Volt; */
     #define PINT2mA 132     /* (*) hard: one integer step on arduino analog translates to mA (example 4.9 / 37 * 1000) ;
@@ -699,7 +917,7 @@
   /**************************************************************************************/
     /* motors will not spin when the throttle command is in low position
        this is an alternative method to stop immediately the motors */
-    //#define MOTOR_STOP
+    #define MOTOR_STOP
 
 	//#define EXT_MOTOR_64KHZ // only 255 steps + very risky. Really want it?
 	#define EXT_MOTOR_32KHZ // only 511 steps + on your own risk!
