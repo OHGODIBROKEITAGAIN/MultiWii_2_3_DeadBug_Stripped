@@ -42,17 +42,18 @@
     //#define MINTHROTTLE 1120 // for Super Simple ESCs 10A
     //#define MINTHROTTLE 1064 // special ESC (simonk)
     //#define MINTHROTTLE 1050 // for brushed ESCs like ladybird
-    #define MINTHROTTLE 1050 // for DeadBug
+    #define MINTHROTTLE 1000 // for DeadBug
     //#define MINTHROTTLE 1150 // (*) (**)
 
   /****************************    Motor maxthrottle    *******************************/
     /* this is the maximum value for the ESCs at full power, this value can be increased up to 2000 */
     //#define MAXTHROTTLE 2020
-#define MAXTHROTTLE 1800
+    //#define MAXTHROTTLE 1875
+    #define MAXTHROTTLE 2000
   /****************************    Mincommand          *******************************/
     /* this is the value for the ESCs when they are not armed
        in some cases, this value must be lowered down to 900 for some specific ESCs, otherwise they failed to initiate */
-    #define MINCOMMAND  1000
+    #define MINCOMMAND  900
 
   /**********************************    I2C speed   ************************************/
     #define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
@@ -79,8 +80,7 @@
 	//#define HEADHOLD
         #define ANGLE
         #define HORIZON
-        #define PASSTHRU
-        #define HEADHOLD
+        //#define PASSTHRU
         #define FAILSAFE
 
 /*************************************************************************************************/
@@ -292,7 +292,13 @@
     #define SERIAL2_COM_SPEED 115200
     #define SERIAL3_COM_SPEED 115200
 
-    /* interleaving delay in micro seconds between 2 readings WMP/NK in a WMP+NK config
+    //#define SERIAL0_COM_SPEED 9600
+    //#define SERIAL1_COM_SPEED 9600
+    //#define SERIAL2_COM_SPEED 9600
+    //#define SERIAL3_COM_SPEED 9600
+
+
+/* interleaving delay in micro seconds between 2 readings WMP/NK in a WMP+NK config
        if the ACC calibration time is very long (20 or 30s), try to increase this delay up to 4000
        it is relevent only for a conf with NK */
     #define INTERLEAVING_DELAY 3000
@@ -324,9 +330,9 @@
          It will not help on feedback wobbles, so change only when copter is randomly twiching and all dampening and
          balancing options ran out. Uncomment only one option!
          IMPORTANT! Change low pass filter setting changes PID behaviour, so retune your PID's after changing LPF.*/
-      //#define MPU6050_LPF_256HZ     // This is the default setting, no need to uncomment, just for reference
+      #define MPU6050_LPF_256HZ     // This is the default setting, no need to uncomment, just for reference
       //#define MPU6050_LPF_188HZ
-      #define MPU6050_LPF_98HZ
+      //#define MPU6050_LPF_98HZ
       //#define MPU6050_LPF_42HZ
       //#define MPU6050_LPF_20HZ
       //#define MPU6050_LPF_10HZ
@@ -389,58 +395,18 @@
 
 
   /********                          Failsafe settings                 ********************/
-    /* Failsafe check pulses on four main control channels CH1-CH4. If the pulse is missing or bellow 985us (on any of these four channels) 
+    /* Failsafe check pulses on four main control channels CH1-CH4. If the pulse is missing or bellow 985us (on any of these four channels)
        the failsafe procedure is initiated. After FAILSAFE_DELAY time from failsafe detection, the level mode is on (if ACC or nunchuk is avaliable),
        PITCH, ROLL and YAW is centered and THROTTLE is set to FAILSAFE_THROTTLE value. You must set this value to descending about 1m/s or so
        for best results. This value is depended from your configuration, AUW and some other params.  Next, after FAILSAFE_OFF_DELAY the copter is disarmed, 
        and motors is stopped. If RC pulse coming back before reached FAILSAFE_OFF_DELAY time, after the small quard time the RC control is returned to normal. */
     #define FAILSAFE                                // uncomment  to activate the failsafe function
-    #define FAILSAFE_DELAY     5                     // Guard time for failsafe activation after signal lost. 1 step = 0.1sec - 1sec in example
-    #define FAILSAFE_OFF_DELAY 30                    // Time for Landing before motors stop in 0.1sec. 1 step = 0.1sec - 20sec in example
-    #define FAILSAFE_THROTTLE  (MINTHROTTLE+100)    // (*) Throttle level used for landing - may be relative to MINTHROTTLE - as in this case
+    #define FAILSAFE_DELAY     1                     // Guard time for failsafe activation after signal lost. 1 step = 0.1sec - 1sec in example
+    #define FAILSAFE_OFF_DELAY 0                    // Time for Landing before motors stop in 0.1sec. 1 step = 0.1sec - 20sec in example
+    #define FAILSAFE_THROTTLE  (MINTHROTTLE)    // (*) Throttle level used for landing - may be relative to MINTHROTTLE - as in this case
     
-    #define FAILSAFE_DETECT_TRESHOLD  985
+    #define FAILSAFE_DETECT_TRESHOLD  985 // 985 us default
 
-
-  /*****************                DFRobot LED RING    *********************************/
-    /* I2C DFRobot LED RING communication */
-    //#define LED_RING
-
-  /********************************    LED FLASHER    ***********************************/
-    //#define LED_FLASHER
-    //#define LED_FLASHER_DDR DDRB
-    //#define LED_FLASHER_PORT PORTB
-    //#define LED_FLASHER_BIT PORTB4
-    //#define LED_FLASHER_INVERT
-    //#define LED_FLASHER_SEQUENCE        0b00000000      // leds OFF
-    //#define LED_FLASHER_SEQUENCE_ARMED  0b00000101      // create double flashes
-    //#define LED_FLASHER_SEQUENCE_MAX    0b11111111      // full illumination
-    //#define LED_FLASHER_SEQUENCE_LOW    0b00000000      // no illumination
-
-
-  /*******************************    Landing lights    *********************************/
-  /* Landing lights
-     Use an output pin to control landing lights.
-     They can be switched automatically when used in conjunction
-     with altitude data from a sonar unit. */
-    //#define LANDING_LIGHTS_DDR DDRC
-    //#define LANDING_LIGHTS_PORT PORTC
-    //#define LANDING_LIGHTS_BIT PORTC0
-    //#define LANDING_LIGHTS_INVERT
-
-    /* altitude above ground (in cm) as reported by sonar */
-    //#define LANDING_LIGHTS_AUTO_ALTITUDE 50
-
-    /* adopt the flasher pattern for landing light LEDs */
-    //#define LANDING_LIGHTS_ADOPT_LED_FLASHER_PATTERN
-
-  /*************************    INFLIGHT ACC Calibration    *****************************/
-    /* This will activate the ACC-Inflight calibration if unchecked */
-    //#define INFLIGHT_ACC_CALIBRATION
-
-  /*******************************    OSD Switch    *************************************/
-    // This adds a box that can be interpreted by OSD in activation status (to switch on/off the overlay for instance)
-  //#define OSD_SWITCH
 
   /**************************************************************************************/
   /***********************                  TX-related         **************************/
@@ -448,7 +414,7 @@
 
     /* introduce a deadband around the stick center
        Must be greater than zero, comment if you dont want a deadband on roll, pitch and yaw */
-    #define DEADBAND 20
+    //#define DEADBAND 20
 
   /**************************************************************************************/
   /***********************                  GPS                **************************/
@@ -529,11 +495,11 @@
 
     /*****************************   The type of LCD     **********************************/
       /* choice of LCD attached for configuration and telemetry, see notes below */
-      //#define LCD_DUMMY       // No Physical LCD attached.  With this & LCD_CONF defined, TX sticks still work to set gains, by watching LED blink.  
+      //#define LCD_DUMMY       // No Physical LCD attached.  With this & LCD_CONF defined, TX sticks still work to set gains, by watching LED blink.
       //#define LCD_SERIAL3W    // Alex' initial variant with 3 wires, using rx-pin for transmission @9600 baud fixed
       //#define LCD_TEXTSTAR    // SERIAL LCD: Cat's Whisker LCD_TEXTSTAR Module CW-LCD-02 (Which has 4 input keys for selecting menus)
       //#define LCD_VT100       // SERIAL LCD: vt100 compatible terminal emulation (blueterm, putty, etc.)
-      //#define LCD_TTY         // SERIAL LCD: useful to tweak parameters over cable with arduino IDE 'serial monitor'
+      #define LCD_TTY         // SERIAL LCD: useful to tweak parameters over cable with arduino IDE 'serial monitor'
       //#define LCD_ETPP        // I2C LCD: Eagle Tree Power Panel LCD, which is i2c (not serial)
       //#define LCD_LCD03       // I2C LCD: LCD03, which is i2c
       //#define OLED_I2C_128x64 // I2C LCD: OLED http://www.multiwii.com/forum/viewtopic.php?f=7&t=1350
@@ -635,10 +601,10 @@
        must be associated with #define BUZZER ! */
     #define VBAT              // uncomment this line to activate the vbat code
     #define VBATSCALE       131 // (*) (**) change this value if readed Battery voltage is different than real voltage
-    #define VBATNOMINAL     126 // 12,6V full battery nominal voltage - only used for lcd.telemetry
-    #define VBATLEVEL_WARN1 107 // (*) (**) 10,7V
-    #define VBATLEVEL_WARN2  99 // (*) (**) 9.9V
-    #define VBATLEVEL_CRIT   93 // (*) (**) 9.3V - critical condition: if vbat ever goes below this value, permanent alarm is triggered
+    #define VBATNOMINAL     42 // 12,6V full battery nominal voltage - only used for lcd.telemetry
+    #define VBATLEVEL_WARN1 40 // (*) (**) 10,7V
+    #define VBATLEVEL_WARN2  38 // (*) (**) 9.9V
+    #define VBATLEVEL_CRIT   34 // (*) (**) 9.3V - critical condition: if vbat ever goes below this value, permanent alarm is triggered
     #define NO_VBAT          16 // Avoid beeping without any battery
 
 
